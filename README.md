@@ -1,6 +1,6 @@
-# Tee Timer API
+# Tee Timer
 
-A FastAPI application for managing golf course tee times.
+A full-stack application for managing golf course tee times.
 
 ## Features
 
@@ -11,10 +11,17 @@ A FastAPI application for managing golf course tee times.
 
 ## Tech Stack
 
+### Backend
 - Python 3.8+
 - FastAPI
 - SQLModel (combines SQLAlchemy Core + Pydantic)
 - SQLite database (can be configured to use other databases)
+
+### Frontend
+- React
+- React Router
+- Axios
+- Vite
 
 ## Installation
 
@@ -24,26 +31,54 @@ git clone https://github.com/yourusername/tee-timer.git
 cd tee-timer
 ```
 
-2. Install dependencies:
+2. Install backend dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
+3. Install frontend dependencies:
+```bash
+cd client
+npm install
+cd ..
+```
+
 ## Usage
 
-1. Start the API:
+### Option 1: Start both backend and frontend with single script
+
 ```bash
+# Make the start script executable
+chmod +x start.sh
+
+# Run the script to start both services
+./start.sh
+```
+
+### Option 2: Start services separately
+
+1. Start the backend API:
+```bash
+# In the root directory
 uvicorn main:app --reload
 ```
 
-2. The API will be available at http://127.0.0.1:8000
-
-3. Access the API documentation at http://127.0.0.1:8000/docs
-
-4. (Optional) Seed the database with sample data:
+2. Seed the database with sample data (optional):
 ```bash
 python seed_data.py
 ```
+
+3. Start the frontend (in a separate terminal):
+```bash
+cd client
+npm start
+```
+
+### Access the application
+
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:8000
+- API documentation: http://localhost:8000/docs
 
 ## API Endpoints
 
@@ -68,7 +103,7 @@ python seed_data.py
 ```
 tee-timer/
 │
-├── app/
+├── app/                      # Backend API code
 │   ├── config/
 │   │   ├── __init__.py
 │   │   └── database.py
@@ -80,8 +115,23 @@ tee-timer/
 │   │   └── tee_times.py
 │   └── __init__.py
 │
-├── main.py
-├── requirements.txt
-├── seed_data.py
+├── client/                   # Frontend React application
+│   ├── public/
+│   │   └── favicon.svg
+│   ├── src/
+│   │   ├── components/       # Reusable React components
+│   │   ├── pages/            # Page components
+│   │   ├── services/         # API services
+│   │   ├── App.jsx           # Main app component
+│   │   ├── index.css         # Global styles
+│   │   └── main.jsx          # Entry point
+│   ├── index.html
+│   ├── package.json
+│   └── vite.config.js
+│
+├── main.py                   # FastAPI app entry point
+├── requirements.txt          # Backend dependencies
+├── seed_data.py              # Database seeding script
+├── start.sh                  # Script to start both frontend and backend
 └── README.md
 ```
